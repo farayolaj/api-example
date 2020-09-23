@@ -8,8 +8,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "node ./bin/app.js",
-    "dev": "ts-node ./src/app.ts",
+    "start": "ENV_FILE=./config/.env.prod node -r tsconfig-paths/register ./bin/app.js",
+    "dev": "ENV_FILE=./config/.env.dev ts-node -r tsconfig-paths/register ./src/app.ts",
     "lint": "eslint --fix src/*"
   },
   "dependencies": {
