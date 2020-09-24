@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable prefer-rest-params */
+/* istanbul ignore file */
+
 import express from 'express';
 
 import logger from '@apie/utils/logger';

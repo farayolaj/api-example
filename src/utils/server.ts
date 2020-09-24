@@ -10,7 +10,7 @@ import YAML from 'yamljs';
 import * as api from '@apie/api/controllers';
 import logger from '@apie/utils/logger';
 import config from '@apie/config';
-import { expressDevLogger } from '@apie/utils/express_dev_logger';
+import { expressDevLogger } from '@apie/utils/expressDevLogger';
 
 export async function createServer(): Promise<Express> {
   const yamlSpecFile = './config/openapi.yaml';
@@ -21,10 +21,16 @@ export async function createServer(): Promise<Express> {
   const server = express();
   // here we can intialize body/cookies parsers, connect logger, for example morgan
   server.use(bodyParser.json());
+
+  /* istanbul ignore next */
   if (config.morganLogger)
     server.use(morgan(':method :url :status :response-time ms - :res[content-length]'));
+
+  /* istanbul ignore next */
   if (config.morganBodyLogger)
     morganBody(server);
+    
+  /* istanbul ignore next */
   if (config.exmplDevLogger)
     server.use(expressDevLogger);
 
