@@ -3,3 +3,4 @@ bin
 **/.env.*
 !config/.env.schema
 coverage
+yarn-error.log

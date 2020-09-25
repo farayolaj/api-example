@@ -13,40 +13,42 @@ externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
 servers:
-- url: /api/v1
- 
+  - url: /api/v1
+
 tags:
   - name: greeting
     description: Greeting APIs
- 
+  - name: user
+    description: User APIs
+
 paths:
   /hello:
     get:
       description: Returns 'Hello <name>/stranger!!!' to the caller
-      tags: 
+      tags:
         - greeting
       operationId: hello
       parameters:
-      - name: name
-        required: false
-        in: query
-        description: The name of a caller
-        schema:
-          type: string
+        - name: name
+          required: false
+          in: query
+          description: The name of a caller
+          schema:
+            type: string
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HelloResponse'
+                $ref: "#/components/schemas/HelloResponse"
   /goodbye:
     get:
       description: Returns 'Goodbye \<name\>!!!' to the authenticated caller
-      tags: 
+      tags:
         - greeting
       operationId: goodbye
-      security: 
+      security:
         - bearerAuth: []
       responses:
         200:
@@ -54,14 +56,64 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HelloResponse'
- 
+                $ref: "#/components/schemas/HelloResponse"
+  /user:
+    post:
+      summary: Create User
+      tags:
+        - user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+                - email
+                - password
+                - name
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                name:
+                  type: string
+      responses:
+        201:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                  - userId
+                properties:
+                  userId:
+                    type: string
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FailResponse"
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FailResponse"
+
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-      
+
   schemas:
     HelloResponse:
       type: object
@@ -70,4 +122,15 @@ components:
         - message
       properties:
         message:
+          type: string
+    FailResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - success
+        - error
+      properties:
+        success:
+          type: boolean
+        error:
           type: string
