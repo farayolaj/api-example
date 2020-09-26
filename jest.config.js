@@ -4,10 +4,5 @@ module.exports = {
   moduleNameMapper: {
     '@apie/(.*)': '<rootDir>/src/$1'
   },
-  testPathIgnorePatterns: [
-    '/node_modules/',
-    '/src/api/models',
-    '/src/api/services/__tests__/user.ts',
-    '/src/api/controllers/__tests__/user.ts'
-  ]
+  testTimeout: 10000
 };

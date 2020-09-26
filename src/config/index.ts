@@ -26,7 +26,10 @@ interface Config {
     useCreateIndex: boolean,
     autoIndex: boolean
   },
-  mongoMsSystemBinary: string
+  // mongoMsSystemBinary: string,
+  privateKeyFile: string,
+  privateKeyPassphrase: string,
+  publicKeyFile: string
 }
 
 const config: Config = {
@@ -39,7 +42,10 @@ const config: Config = {
     useCreateIndex: parsedEnv.MONGO_CREATE_INDEX as boolean,
     autoIndex: parsedEnv.MONGO_AUTO_INDEX as boolean
   },
-  mongoMsSystemBinary: parsedEnv.MONGOMS_SYSTEM_BINARY as string
+  // mongoMsSystemBinary: parsedEnv.MONGOMS_SYSTEM_BINARY as string,
+  privateKeyFile: parsedEnv.PRIVATE_KEY_FILE as string,
+  privateKeyPassphrase: parsedEnv.PRIVATE_KEY_PASSPHRASE as string,
+  publicKeyFile: parsedEnv.PUBLIC_KEY_FILE as string
 };
 
 
