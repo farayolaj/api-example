@@ -1,9 +1,10 @@
 import fs from 'fs';
 import jwt, { SignOptions, VerifyOptions } from 'jsonwebtoken';
 
-import User from '@apie/api/models/user';
+import User, { IUser } from '@apie/api/models/user';
 import config from '@apie/config';
 import logger from '@apie/utils/logger';
+import cacheLocal from '@apie/utils/cache_local';
 
 export type ErrorResponse = { error: { type: string, message: string } }
 export type AuthResponse = ErrorResponse | { userId: string }
@@ -64,9 +65,20 @@ function createAuthToken(userId: string): Promise<{token: string, expireAt: Date
 /** Authenticate using email and password */
 async function login(login: string, password: string): Promise<LoginUserResponse> {
   try {
-    const user = await User.findOne({email: login});
+    // const user = await User.findOne({email: login});
+    // if (!user) {
+    //   return {error: {type: 'invalid_credentials', message: 'Invalid Login/Password'}};
+    // }
+
+    let user: IUser | undefined | null = cacheLocal.get<IUser>(login);
     if (!user) {
-      return {error: {type: 'invalid_credentials', message: 'Invalid Login/Password'}};
+      user = await User.findOne({email: login});
+      if (!user) {
+        return {error: {type: 'invalid_credentials', message: 'Invalid Login/Password'}};
+      }
+
+      cacheLocal.set(user._id.toString(), user);
+      cacheLocal.set(login, user);
     }
 
     const passwordMatch = await user.comparePassword(password);

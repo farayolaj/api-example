@@ -83,7 +83,7 @@ describe('login', () => {
   });
 });
 
-it('auth perfromance test', async () => {
+it('auth performance test', async () => {
   const dummy = await createDummyAndAuthorize();
 
   const now = new Date().getTime();

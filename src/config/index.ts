@@ -29,7 +29,8 @@ interface Config {
   // mongoMsSystemBinary: string,
   privateKeyFile: string,
   privateKeyPassphrase: string,
-  publicKeyFile: string
+  publicKeyFile: string,
+  localCacheTtl: number
 }
 
 const config: Config = {
@@ -45,7 +46,8 @@ const config: Config = {
   // mongoMsSystemBinary: parsedEnv.MONGOMS_SYSTEM_BINARY as string,
   privateKeyFile: parsedEnv.PRIVATE_KEY_FILE as string,
   privateKeyPassphrase: parsedEnv.PRIVATE_KEY_PASSPHRASE as string,
-  publicKeyFile: parsedEnv.PUBLIC_KEY_FILE as string
+  publicKeyFile: parsedEnv.PUBLIC_KEY_FILE as string,
+  localCacheTtl: parsedEnv.LOCAL_CACHE_TTL as number
 };
 
 
