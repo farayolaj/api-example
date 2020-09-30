@@ -4,12 +4,21 @@ import {Express} from 'express-serve-static-core';
 
 import UserService from '@apie/api/services/user';
 import {createServer} from '@apie/utils/server';
+import db from '@apie/utils/db';
+import cacheExternal from '@apie/utils/cacheExternal';
 
 jest.mock('@apie/api/services/user');
 
 let server: Express;
 beforeAll(async () => {
+  await cacheExternal.open();
+  await db.open();
   server = await createServer();
+});
+
+afterAll(async () => {
+  await cacheExternal.close();
+  await db.close();
 });
 
 describe('auth failure', () => {

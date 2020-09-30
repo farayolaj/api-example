@@ -6,7 +6,6 @@ import User from '@apie/api/models/user';
 import db from '@apie/utils/db';
 
 beforeAll(async () => {
-  jest.setTimeout(10000);
   await db.open();
 });
 

@@ -1,8 +1,10 @@
 import { createServer } from '@apie/utils/server';
 import db from '@apie/utils/db';
 import logger from '@apie/utils/logger';
+import cacheExternal from './utils/cacheExternal';
 
-db.open()
+cacheExternal.open()
+  .then(() => db.open())
   .then(() => createServer())
   .then(server => {
     server.listen(3000, () => {

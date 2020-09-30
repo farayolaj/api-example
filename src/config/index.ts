@@ -30,7 +30,8 @@ interface Config {
   privateKeyFile: string,
   privateKeyPassphrase: string,
   publicKeyFile: string,
-  localCacheTtl: number
+  localCacheTtl: number,
+  redisUrl: string
 }
 
 const config: Config = {
@@ -47,7 +48,8 @@ const config: Config = {
   privateKeyFile: parsedEnv.PRIVATE_KEY_FILE as string,
   privateKeyPassphrase: parsedEnv.PRIVATE_KEY_PASSPHRASE as string,
   publicKeyFile: parsedEnv.PUBLIC_KEY_FILE as string,
-  localCacheTtl: parsedEnv.LOCAL_CACHE_TTL as number
+  localCacheTtl: parsedEnv.LOCAL_CACHE_TTL as number,
+  redisUrl: parsedEnv.REDIS_URL as string
 };
 
 

@@ -4,3 +4,4 @@ bin
 !config/.env.schema
 coverage
 yarn-error.log
+config/jwt

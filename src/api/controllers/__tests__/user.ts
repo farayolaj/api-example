@@ -6,14 +6,17 @@ import { Express } from 'express-serve-static-core';
 import db from '@apie/utils/db';
 import { createServer } from '@apie/utils/server';
 import { createDummy } from '@apie/tests/user';
+import cacheExternal from '@apie/utils/cacheExternal';
 
 let server: Express;
 beforeAll(async () => {
+  await cacheExternal.open();
   await db.open();
   server = await createServer();
 });
 
 afterAll(async () => {
+  await cacheExternal.close();
   await db.close();
 });
 

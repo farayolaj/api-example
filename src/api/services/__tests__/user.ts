@@ -3,12 +3,15 @@ import faker from 'faker';
 import db from '@apie/utils/db';
 import user from '../user';
 import { createDummy, createDummyAndAuthorize } from '@apie/tests/user';
+import cacheExternal from '@apie/utils/cacheExternal';
 
 beforeAll(async () => {
+  await cacheExternal.open();
   await db.open();
 });
 
 afterAll(async () => {
+  await cacheExternal.close();
   await db.close();
 });
 
@@ -93,5 +96,5 @@ it('auth performance test', async () => {
     await user.auth(`Bearer ${dummy.token!}`);
   } while (new Date().getTime() - now < 1000);
 
-  console.log(`auth perfromance test: ${i}`);
+  console.log(`auth performance test: ${i}`);
 });

@@ -3,12 +3,15 @@ import jwt, {Secret, SignCallback, SignOptions} from 'jsonwebtoken';
 import db from '@apie/utils/db';
 import {createDummy} from '@apie/tests/user';
 import user from '../user';
+import cacheExternal from '@apie/utils/cacheExternal';
 
 beforeAll(async () => {
+  await cacheExternal.open();
   await db.open();
 });
 
 afterAll(async () => {
+  await cacheExternal.close();
   await db.close();
 });
 
